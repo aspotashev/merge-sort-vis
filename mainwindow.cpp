@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ball.h"
+#include "vertex.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,7 +12,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setRenderHints(QPainter::Antialiasing);
     ui->graphicsView->setScene(scene);
 
-    scene->addItem(new Ball(0, 0, 256, Qt::darkCyan));
+    n = 11;
+    a = new int[n];
+    for (int i = 0; i < n; i ++)
+    {
+        a[i] = (i * 3 + 2) % n + 1;
+
+        std::vector<int> arr;
+        arr.push_back(a[i]);
+        scene->addItem(new Vertex(QPointF(i * 50, 0), arr));
+    }
 }
 
 MainWindow::~MainWindow()

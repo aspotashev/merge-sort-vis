@@ -18,6 +18,9 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
+
+    int n;
+    int *a;
 };
 
 #endif // MAINWINDOW_H

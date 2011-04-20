@@ -6,15 +6,15 @@
 
 QT       += core gui
 
-TARGET = ballslicer
+TARGET = merge-sort-vis
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    ball.cpp
+        vertex.cpp
 
 HEADERS  += mainwindow.h \
-    ball.h
+        vertex.h
 
 FORMS    += mainwindow.ui
