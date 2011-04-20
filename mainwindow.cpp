@@ -19,14 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
         a[i] = (i * 3 + 2) % n + 1;
     }
 
-    mergeSort(0, n);
-
-    for (int i = 0; i < n; i ++)
-    {
-        std::vector<int> arr;
-        arr.push_back(a[i]);
-        scene->addItem(new Vertex(QPointF(i * 50, 0), arr));
-    }
+    createSubarrayVertex(0, n, 0);
+    mergeSort(0, n, NULL);
 }
 
 MainWindow::~MainWindow()
@@ -34,16 +28,17 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::mergeSort(int i, int j)
+void MainWindow::mergeSort(int i, int j, Vertex *parent = NULL)
 {
-    if (i + 1 == j) // size = 1
-    {
-    }
-    else // size > 1
+    Vertex *vertex = createSubarrayVertex(i, j, parent ? parent->yPos() + 70 : 0);
+    if (parent)
+        scene->addLine(QLineF(parent->bottomPoint(), vertex->topPoint()));
+
+    if (i + 1 < j) // size > 1
     {
         int mid = (i + j) / 2;
-        mergeSort(i, mid);
-        mergeSort(mid, j);
+        mergeSort(i, mid, vertex);
+        mergeSort(mid, j, vertex);
 
         int *new_a = new int [j - i];
         int next1 = i; // next element in the first part of array
@@ -77,4 +72,15 @@ void MainWindow::mergeSort(int i, int j)
 
         delete [] new_a;
     }
+}
+
+Vertex *MainWindow::createSubarrayVertex(int i, int j, qreal yPos)
+{
+    std::vector<int> arr;
+    for (int k = i; k < j; k ++)
+        arr.push_back(a[k]);
+
+    Vertex *res = new Vertex(QPointF((i + j) * 25, yPos), arr);
+    scene->addItem(res);
+    return res;
 }

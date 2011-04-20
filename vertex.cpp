@@ -16,7 +16,7 @@ void Vertex::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
     for (int i = 0; i < (int)m_values.size(); i ++)
     {
-        QRectF rect(m_pos.x() - 15 * (int)m_values.size() + 15 * i, m_pos.y() - 15, 30, 30);
+        QRectF rect(m_pos.x() - 15 * (int)m_values.size() + 30 * i, m_pos.y() - 15, 30, 30);
         painter->drawRect(rect);
         painter->drawText(rect, Qt::AlignCenter, QString::number(m_values[i]));
     }
@@ -27,4 +27,19 @@ QRectF Vertex::boundingRect() const
     return QRectF(
     	m_pos.x() - 15 * (int)m_values.size(), m_pos.y() - 15,
         30 * (int)m_values.size(), 30);
+}
+
+qreal Vertex::yPos() const
+{
+    return m_pos.y();
+}
+
+QPointF Vertex::bottomPoint() const
+{
+    return QPointF(m_pos.x(), m_pos.y() + 15);
+}
+
+QPointF Vertex::topPoint() const
+{
+    return QPointF(m_pos.x(), m_pos.y() - 15);
 }
