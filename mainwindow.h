@@ -15,6 +15,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void mergeSort(int i, int j);
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
